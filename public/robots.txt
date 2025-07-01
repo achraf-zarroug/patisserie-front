@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://patisserie-pink.vercel.app/sitemap.xml
