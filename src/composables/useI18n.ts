@@ -66,7 +66,9 @@ const translations = {
     },
     // Reservation
     reservation: {
-      title: "Réservez Votre Gâteau",
+      title: "Réservez",
+      reserveYour: "Réservez Votre",
+      cake: "Gâteau",
       description:
         "Commandez votre gâteau personnalisé pour vos événements spéciaux. Nos pâtissiers s'occupent de tout avec passion et expertise.",
       formTitle: "Formulaire de Réservation",
@@ -233,7 +235,9 @@ const translations = {
     },
     // Reservation
     reservation: {
-      title: "Reserve Your Cake",
+      title: "Reserve",
+      reserveYour: "Reserve Your",
+      cake: "Cake",
       description:
         "Order your personalized cake for your special events. Our pastry chefs take care of everything with passion and expertise.",
       formTitle: "Reservation Form",
@@ -394,7 +398,9 @@ const translations = {
     },
     // Reservation
     reservation: {
-      title: "احجز كعكتك",
+      title: "احجز ",
+      reserveYour: "احجز",
+      cake: "كعكتك",
       description: "اطلب كعكتك المخصصة لمناسباتك الخاصة. خبراء الحلويات لدينا يهتمون بكل شيء بشغف وخبرة.",
       formTitle: "نموذج الحجز",
       formDesc: "املأ هذا النموذج وسنتواصل معك خلال 24 ساعة",

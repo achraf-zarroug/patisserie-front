@@ -15,7 +15,7 @@
       </div>
       <div v-if="showCategory" class="absolute top-4 left-4">
         <span class="bg-white/90 backdrop-blur-sm text-rose-700 text-xs px-3 py-1 rounded-full font-medium">
-          {{ product.category }}
+          {{ t(`products.${product.category.toLowerCase()}`) || product.category }}
         </span>
       </div>
     </div>
@@ -31,14 +31,14 @@
           <span class="text-2xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
             {{ product.price }}€
           </span>
-          <span class="text-xs text-gray-500">Prix TTC</span>
+          <span class="text-xs text-gray-500">{{ t('products.priceLabel') }}</span>
         </div>
         <button 
           @click="handleOrder"
           class="bg-gradient-to-r from-rose-500 to-pink-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:from-rose-600 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 flex items-center"
         >
           <ShoppingCart class="h-4 w-4 mr-2" />
-          Commander
+          {{ t('products.order') }}
         </button>
       </div>
     </div>
@@ -48,6 +48,7 @@
 <script lang="ts">
 import { defineComponent, type PropType, computed } from 'vue'
 import { Heart, ShoppingCart } from 'lucide-vue-next'
+import { useI18n } from '../composables/useI18n'
 
 interface Product {
   id: number
@@ -75,11 +76,12 @@ export default defineComponent({
   },
   emits: ['order'],
   setup(props, { emit }) {
+    const { t } = useI18n()
+
     const handleOrder = () => {
       emit('order', props.product)
     }
 
-    // Images de placeholder utilisant Unsplash
     const productImage = computed(() => {
       const imageMap: { [key: number]: string } = {
         1: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center',
@@ -92,10 +94,11 @@ export default defineComponent({
         8: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=400&h=300&fit=crop&crop=center',
         9: 'https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=400&h=300&fit=crop&crop=center'
       }
-      return imageMap[props.product.id] || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center'
+      return imageMap[props.product.id] || imageMap[1]
     })
 
     return {
+      t,
       handleOrder,
       productImage
     }
