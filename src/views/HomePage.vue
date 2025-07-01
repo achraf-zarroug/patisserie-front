@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="isRTL ? 'rtl' : 'ltr'">
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100 py-24 overflow-hidden">
       <!-- Background Pattern -->
@@ -10,46 +10,52 @@
       </div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="text-center lg:text-left">
+        <div :class="['grid grid-cols-1 lg:grid-cols-2 gap-12 items-center', isRTL ? 'lg:grid-flow-col-dense' : '']">
+          <div :class="['text-center lg:text-left', isRTL ? 'lg:text-right lg:col-start-2' : '']">
             <div class="mb-8">
               <span class="inline-block bg-gradient-to-r from-rose-500 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                ✨ Pâtisserie Artisanale depuis 2008
+                ✨ {{ t('home.tagline') }}
               </span>
             </div>
             <h1 class="text-5xl md:text-7xl font-bold text-gray-800 mb-6 leading-tight">
-              Bienvenue chez 
+              {{ t('home.welcome') }}
               <span class="bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent block">
-                Délices Sucrés
+                {{ t('home.brandName') }}
               </span>
             </h1>
             <p class="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
-              Découvrez nos créations artisanales exceptionnelles, des gâteaux préparés avec amour, passion et les meilleurs ingrédients sélectionnés avec soin.
+              {{ t('home.description') }}
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div :class="['flex flex-col sm:flex-row gap-4 justify-center lg:justify-start', isRTL ? 'lg:justify-end' : '']">
               <router-link 
                 to="/products"
-                class="bg-gradient-to-r from-rose-500 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-rose-600 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center justify-center"
+                :class="[
+                  'bg-gradient-to-r from-rose-500 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-rose-600 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center justify-center',
+                  isRTL ? 'flex-row-reverse' : ''
+                ]"
               >
-                <ShoppingBag class="h-5 w-5 mr-2" />
-                Découvrir nos Gâteaux
+                <ShoppingBag :class="['h-5 w-5', isRTL ? 'ml-2 mr-0' : 'mr-2']" />
+                {{ t('home.discoverCakes') }}
               </router-link>
               <router-link 
                 to="/reservation"
-                class="border-2 border-rose-500 text-rose-600 px-8 py-4 rounded-xl font-semibold hover:bg-rose-500 hover:text-white transition-all duration-200 hover:scale-105 inline-flex items-center justify-center"
+                :class="[
+                  'border-2 border-rose-500 text-rose-600 px-8 py-4 rounded-xl font-semibold hover:bg-rose-500 hover:text-white transition-all duration-200 hover:scale-105 inline-flex items-center justify-center',
+                  isRTL ? 'flex-row-reverse' : ''
+                ]"
               >
-                <Calendar class="h-5 w-5 mr-2" />
-                Réserver Maintenant
+                <Calendar :class="['h-5 w-5', isRTL ? 'ml-2 mr-0' : 'mr-2']" />
+                {{ t('home.reserveNow') }}
               </router-link>
             </div>
           </div>
           
           <!-- Hero Image -->
-          <div class="relative">
+          <div :class="['relative', isRTL ? 'lg:col-start-1' : '']">
             <div class="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
                 src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=500&fit=crop&crop=center" 
-                alt="Gâteaux artisanaux Délices Sucrés"
+                alt="Gâteaux artisanaux"
                 class="w-full h-96 object-cover"
                 loading="eager"
               />
@@ -57,7 +63,7 @@
             </div>
             
             <!-- Floating Cards -->
-            <div class="absolute -top-6 -left-6 bg-white rounded-xl p-4 shadow-xl">
+            <div :class="['absolute -top-6 bg-white rounded-xl p-4 shadow-xl', isRTL ? '-right-6' : '-left-6']">
               <div class="flex items-center space-x-2">
                 <Star class="h-5 w-5 text-yellow-400 fill-current" />
                 <span class="text-sm font-semibold text-gray-800">4.9/5</span>
@@ -65,12 +71,12 @@
               <p class="text-xs text-gray-600">+500 avis</p>
             </div>
             
-            <div class="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-xl">
+            <div :class="['absolute -bottom-6 bg-white rounded-xl p-4 shadow-xl', isRTL ? '-left-6' : '-right-6']">
               <div class="flex items-center space-x-2">
                 <Award class="h-5 w-5 text-rose-500" />
                 <span class="text-sm font-semibold text-gray-800">Artisan</span>
               </div>
-              <p class="text-xs text-gray-600">Depuis 2008</p>
+              <p class="text-xs text-gray-600">{{ t('home.tagline').split(' ').slice(-1)[0] }}</p>
             </div>
           </div>
         </div>
@@ -82,11 +88,11 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <span class="inline-block bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-            Nos Créations
+            {{ t('home.ourCreations') }}
           </span>
-          <h2 class="text-4xl font-bold text-gray-800 mb-6">Nos Spécialités du Moment</h2>
+          <h2 class="text-4xl font-bold text-gray-800 mb-6">{{ t('home.specialties') }}</h2>
           <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Découvrez une sélection de nos créations les plus appréciées, préparées quotidiennement par nos maîtres pâtissiers avec passion et savoir-faire.
+            {{ t('home.specialtiesDesc') }}
           </p>
         </div>
         
@@ -102,10 +108,10 @@
         <div class="text-center mt-12">
           <router-link 
             to="/products"
-            class="inline-flex items-center text-rose-600 hover:text-rose-700 font-semibold group"
+            :class="['inline-flex items-center text-rose-600 hover:text-rose-700 font-semibold group', isRTL ? 'flex-row-reverse' : '']"
           >
-            Voir toute notre collection
-            <ArrowRight class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            {{ t('home.seeCollection') }}
+            <ArrowRight :class="['h-5 w-5 group-hover:translate-x-1 transition-transform', isRTL ? 'mr-2 ml-0 rotate-180 group-hover:-translate-x-1' : 'ml-2']" />
           </router-link>
         </div>
       </div>
@@ -116,9 +122,9 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <span class="inline-block bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-            📸 Notre Atelier
+            📸 {{ t('home.gallery') }}
           </span>
-          <h2 class="text-4xl font-bold text-gray-800 mb-6">Nos Créations en Images</h2>
+          <h2 class="text-4xl font-bold text-gray-800 mb-6">{{ t('home.galleryTitle') }}</h2>
         </div>
         
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -131,7 +137,7 @@
                 loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div :class="['absolute bottom-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300', isRTL ? 'right-4' : 'left-4']">
                 <p class="text-sm font-semibold">{{ image.title }}</p>
               </div>
             </div>
@@ -145,9 +151,9 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <span class="inline-block bg-gradient-to-r from-rose-100 to-pink-100 text-rose-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
-            Nos Engagements
+            {{ t('home.commitments') }}
           </span>
-          <h2 class="text-4xl font-bold text-gray-800 mb-6">Pourquoi Nous Choisir ?</h2>
+          <h2 class="text-4xl font-bold text-gray-800 mb-6">{{ t('home.whyChoose') }}</h2>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -155,24 +161,24 @@
             <div class="bg-white rounded-2xl w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
               <Heart class="h-10 w-10 text-rose-500 group-hover:scale-110 transition-transform" />
             </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Fait avec Amour</h3>
-            <p class="text-gray-600 leading-relaxed">Chaque gâteau est préparé avec passion, attention aux détails et un savoir-faire transmis de génération en génération.</p>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">{{ t('home.madeWithLove') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ t('home.madeWithLoveDesc') }}</p>
           </div>
           
           <div class="text-center group">
             <div class="bg-white rounded-2xl w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
               <Star class="h-10 w-10 text-rose-500 group-hover:scale-110 transition-transform" />
             </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Ingrédients Premium</h3>
-            <p class="text-gray-600 leading-relaxed">Nous sélectionnons uniquement les meilleurs ingrédients naturels et de première qualité pour nos créations.</p>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">{{ t('home.premiumIngredients') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ t('home.premiumIngredientsDesc') }}</p>
           </div>
           
           <div class="text-center group">
             <div class="bg-white rounded-2xl w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
               <Clock class="h-10 w-10 text-rose-500 group-hover:scale-110 transition-transform" />
             </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Fraîcheur Garantie</h3>
-            <p class="text-gray-600 leading-relaxed">Nos gâteaux sont préparés quotidiennement dans notre atelier pour vous garantir une fraîcheur optimale.</p>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">{{ t('home.freshness') }}</h3>
+            <p class="text-gray-600 leading-relaxed">{{ t('home.freshnessDesc') }}</p>
           </div>
         </div>
       </div>
@@ -183,6 +189,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { Heart, Star, Clock, ShoppingBag, Calendar, ArrowRight, Award } from 'lucide-vue-next'
+import { useI18n } from '../composables/useI18n'
 import ProductCard from '../components/ProductCard.vue'
 
 export default defineComponent({
@@ -198,6 +205,8 @@ export default defineComponent({
     ProductCard
   },
   setup() {
+    const { t, isRTL } = useI18n()
+
     const featuredProducts = [
       {
         id: 1,
@@ -270,6 +279,8 @@ export default defineComponent({
     }
 
     return {
+      t,
+      isRTL,
       featuredProducts,
       galleryImages,
       handleOrder

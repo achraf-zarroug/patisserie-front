@@ -1,4 +1,66 @@
-/* src/assets/main.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* RTL Support for Tailwind */
+@layer utilities {
+  .rtl .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+    margin-right: calc(var(--tw-space-x) * var(--tw-space-x-reverse));
+    margin-left: calc(var(--tw-space-x) * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .rtl .flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  /* Arabic font improvements */
+  .rtl {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, "Arabic UI Text", "Geeza Pro", "Traditional Arabic";
+    line-height: 1.8;
+  }
+
+  .rtl .text-right {
+    text-align: right;
+  }
+
+  .rtl .text-left {
+    text-align: left;
+  }
+
+  /* Fix for Arabic number display */
+  .rtl .tabular-nums {
+    font-variant-numeric: tabular-nums;
+    direction: ltr;
+    display: inline-block;
+  }
+}
+
+/* Global RTL fixes */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="rtl"] body {
+  direction: rtl;
+}
+
+/* Ensure proper Arabic text rendering */
+[lang="ar"] {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, "Arabic UI Text", "Geeza Pro", "Traditional Arabic";
+  line-height: 1.8;
+}
+
+/* Fix for form inputs in RTL */
+html[dir="rtl"] input,
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+  text-align: right;
+}
+
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[type="url"],
+html[dir="rtl"] input[type="tel"] {
+  direction: ltr;
+  text-align: left;
+}
